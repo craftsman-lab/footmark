@@ -9,22 +9,32 @@ namespace TestProject.Domain.ModuleA.Featrue
 {
     public class MyFeature01 : IFeature
     {
-        private IAssert _assert;
+        private readonly IAssert _assert;
+        private readonly ILogger _logger;
         //private SigninBehavior signinBehavior;
 
-        public MyFeature01(IAssert assert01, IAssert assert02)
+        public MyFeature01(IAssert assert, ILogger logger)
         {
-            _assert = assert01;
+            _assert = assert;
+            _logger = logger;
+        }
+
+        public void Execute()
+        {
+            Scenario01();
+            Scenario02();
         }
 
         public void Scenario01()
         {
-            _assert.Equal(1, 2);
+            _logger.LogInformation("Execute Scenario01");
+            _assert.Equal(1, 1);
         }
 
         //[Scenario]
         public void Scenario02()
         {
+            _logger.LogInformation("Execute Scenario02");
             // var page = pageRouter.GoTo<LoginPage>();
             // signinBehavior.SignIn();
         }

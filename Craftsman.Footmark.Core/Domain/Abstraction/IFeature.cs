@@ -6,5 +6,6 @@ namespace Craftsman.Footmark.Core.Domain.Abstraction
 {
     public interface IFeature
     {
+        void Execute();
     }
 }
