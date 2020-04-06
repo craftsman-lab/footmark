@@ -18,7 +18,8 @@ namespace Craftsman.Footmark.Core
             builder.RegisterType<MockDbHelper>().As<IDbHelper>();
             builder.RegisterType<XUnitNetAssert>().As<IAssert>();
             //builder.RegisterType<NUnitAssert>().As<IAssert>();
-
+            //builder.RegisterInstance().As<ILogger>();
+            //XUnitLogger : ILogger
 
             var assemblyCore = Assembly.Load("Craftsman.Footmark.Core");
             var assemblyDomain = Assembly.Load("TestProject.Domain");
@@ -27,6 +28,7 @@ namespace Craftsman.Footmark.Core
             builder.RegisterAssemblyTypes(assemblyCore, assemblyDomain, assemblyComponent)
                 .Where(type => typeof(IFeature).IsAssignableFrom(type) && !type.IsAbstract)
                 .AsSelf();
+
             Container = builder.Build();
         }
     }

@@ -21,6 +21,7 @@ namespace Craftsman.Footmark.Core
         {
             //IFeature feature = FootmarkContainer.Container.Resolve<T>();
             //feature.Execute();
+
             Action<ContainerBuilder> action = builder =>
             {
                 var logger = new XUnitLogger(_output);
