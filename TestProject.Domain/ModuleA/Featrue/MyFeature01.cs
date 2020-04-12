@@ -1,4 +1,5 @@
-﻿using Craftsman.Footmark.Core.Domain.Abstraction;
+﻿using Craftsman.Footmark.Core.Domain;
+using Craftsman.Footmark.Core.Domain.Abstraction;
 using Craftsman.Footmark.Core.Infrastructure.Abstraction;
 using System;
 using System.Collections.Generic;
@@ -19,19 +20,14 @@ namespace TestProject.Domain.ModuleA.Featrue
             _logger = logger;
         }
 
-        public void Execute()
-        {
-            Scenario01();
-            Scenario02();
-        }
-
+        [Scenario("Scenario 01"), Tag("BVT")]
         public void Scenario01()
         {
             _logger.LogInformation("Execute Scenario01");
             _assert.Equal(1, 1);
         }
 
-        //[Scenario]
+        [Scenario("Scenario 02")]
         public void Scenario02()
         {
             _logger.LogInformation("Execute Scenario02");

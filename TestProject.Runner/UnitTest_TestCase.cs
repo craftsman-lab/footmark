@@ -11,10 +11,31 @@ namespace TestProject.Runner
         public UnitTest_TestCase(ITestOutputHelper output) : base(output) { }
 
         [Fact]
-        public void Test_Scenario_01()
+        public void Test_Feature_01()
         {
-            ExecuteScenario<MyFeature01>();
+            //ExecuteFeature<MyFeature01>();
+            //ExecuteFeature<MyFeature01>("Scenario 01");
+            ExecuteFeature<MyFeature01>("Scenario 02");
+            // feature.RunAllScenario();
+
+            // feature.RunScenario("Scenario 01");
+            // feature.RunScenarioWithSuite("BVT");
+
             //test code... ...
+
+            // ExecuteScenarios<MyFeature01>();
         }
+
+        [Fact]
+        public void Test_Feature_02()
+        {
+            //var feature = BuildFeature<MyFeature01>();
+            // feature.RunScenario("Scenario 01");
+        }
+
+        //[Theory]
+        //[InlineData()]
+        //public void Test_Scenario_01() { }
+
     }
 }

@@ -1,9 +1,12 @@
 ﻿using Autofac;
+using Craftsman.Footmark.Core.Domain;
 using Craftsman.Footmark.Core.Domain.Abstraction;
 using Craftsman.Footmark.Core.Infrastructure.Abstraction;
 using Craftsman.Footmark.Core.Infrastructure.Implement;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using Xunit.Abstractions;
 
@@ -17,11 +20,13 @@ namespace Craftsman.Footmark.Core
         {
             _output = output;
         }
-        protected void ExecuteScenario<T>() where T : IFeature
-        {
-            //IFeature feature = FootmarkContainer.Container.Resolve<T>();
-            //feature.Execute();
 
+        protected void ExecuteFeature<T>() where T : IFeature
+        {
+            ExecuteFeature<T>(string.Empty);
+        }
+        protected void ExecuteFeature<T>(string scenarioSummary) where T : IFeature
+        {
             Action<ContainerBuilder> action = builder =>
             {
                 var logger = new XUnitLogger(_output);
@@ -31,8 +36,33 @@ namespace Craftsman.Footmark.Core
             using (var scope = FootmarkContainer.Container.BeginLifetimeScope("feature", action))
             {
                 IFeature feature = scope.Resolve<T>();
-                feature.Execute();
+
+                // 执行对应的测试场景
+                var type = feature.GetType();
+                var methods = type.GetMethods().Where(x => HasScenarioAttribute(x, scenarioSummary));
+
+                foreach (var method in methods)
+                {
+                    method.Invoke(feature, null);
+                }
             }
+        }
+
+        private bool HasScenarioAttribute(MethodInfo methodInfo, string scenarioSummary)
+        {
+            var flag = false;
+            var attribute = methodInfo.GetCustomAttributes(typeof(ScenarioAttribute), false).FirstOrDefault() as ScenarioAttribute;
+
+            if (string.IsNullOrEmpty(scenarioSummary))
+            {
+                flag = attribute != null;
+            }
+            else
+            {
+                flag = attribute != null && attribute.Summary == scenarioSummary;
+            }
+
+            return flag;
         }
     }
 }
