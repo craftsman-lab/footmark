@@ -10,10 +10,12 @@ namespace Craftsman.Footmark.Core.Domain
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class ScenarioAttribute : Attribute
     {
+        public string Key { get; set; }
         public string Summary { get; set; }
 
-        public ScenarioAttribute(string summary)
+        public ScenarioAttribute(string key, string summary)
         {
+            Key = key;
             Summary = summary;
         }
     }

@@ -15,7 +15,7 @@ namespace TestProject.Runner
         {
             //ExecuteFeature<MyFeature01>();
             //ExecuteFeature<MyFeature01>("Scenario 01");
-            ExecuteFeature<MyFeature01>("Scenario 02");
+            ExecuteFeature<MyFeature01>("TC0001-01");
             // feature.RunAllScenario();
 
             // feature.RunScenario("Scenario 01");

@@ -25,7 +25,7 @@ namespace Craftsman.Footmark.Core
         {
             ExecuteFeature<T>(string.Empty);
         }
-        protected void ExecuteFeature<T>(string scenarioSummary) where T : IFeature
+        protected void ExecuteFeature<T>(string scenarioKey) where T : IFeature
         {
             Action<ContainerBuilder> action = builder =>
             {
@@ -39,7 +39,7 @@ namespace Craftsman.Footmark.Core
 
                 // 执行对应的测试场景
                 var type = feature.GetType();
-                var methods = type.GetMethods().Where(x => HasScenarioAttribute(x, scenarioSummary));
+                var methods = type.GetMethods().Where(x => HasScenarioAttribute(x, scenarioKey));
 
                 foreach (var method in methods)
                 {
@@ -48,18 +48,18 @@ namespace Craftsman.Footmark.Core
             }
         }
 
-        private bool HasScenarioAttribute(MethodInfo methodInfo, string scenarioSummary)
+        private bool HasScenarioAttribute(MethodInfo methodInfo, string scenarioKey)
         {
             var flag = false;
             var attribute = methodInfo.GetCustomAttributes(typeof(ScenarioAttribute), false).FirstOrDefault() as ScenarioAttribute;
 
-            if (string.IsNullOrEmpty(scenarioSummary))
+            if (string.IsNullOrEmpty(scenarioKey))
             {
                 flag = attribute != null;
             }
             else
             {
-                flag = attribute != null && attribute.Summary == scenarioSummary;
+                flag = attribute != null && attribute.Key == scenarioKey;
             }
 
             return flag;

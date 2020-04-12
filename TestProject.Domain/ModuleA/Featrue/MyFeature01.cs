@@ -20,14 +20,14 @@ namespace TestProject.Domain.ModuleA.Featrue
             _logger = logger;
         }
 
-        [Scenario("Scenario 01"), Tag("BVT")]
+        [Scenario("TC0001-01","Scenario 01"), Tag("BVT")]
         public void Scenario01()
         {
             _logger.LogInformation("Execute Scenario01");
             _assert.Equal(1, 1);
         }
 
-        [Scenario("Scenario 02")]
+        [Scenario("TC0001-02", "Scenario 02")]
         public void Scenario02()
         {
             _logger.LogInformation("Execute Scenario02");
