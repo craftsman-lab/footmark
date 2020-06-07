@@ -17,6 +17,8 @@ namespace Craftsman.Footmark.Core
             // 注册框架基础组件
             builder.RegisterType<MockDbHelper>().As<IDbHelper>();
             builder.RegisterType<XUnitNetAssert>().As<IAssert>();
+
+            builder.RegisterType<SimpleRestClient>().As<IRestClient>();
             //builder.RegisterType<NUnitAssert>().As<IAssert>();
             //builder.RegisterInstance().As<ILogger>();
             //XUnitLogger : ILogger
