@@ -1,5 +1,6 @@
 using RestSharp;
 using RestSharp.Authenticators;
+using SimpleRestApi.Demo.Demo;
 using System;
 using Xunit;
 using Xunit.Abstractions;
@@ -32,6 +33,13 @@ namespace SimpleRestApi.Demo
 
             _output.WriteLine(response02.Content);
 
+
+            var clientA = new JiraClient();
+            var dataContainer = new DataContainer("TC00001"); 
+
+            var respone = clientA.RestInlineCreateIssue(dataContainer["IssueData"]);
+
+            Assert.Equal(201, respone.HttpCode);
             //Rest 封装
             //结构的重复定义
 
